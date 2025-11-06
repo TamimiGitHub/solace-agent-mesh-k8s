@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - image: solace-agent-mesh:latest
+        - image: us-east1-docker.pkg.dev/abiding-triode-168615/solace-repo/solace-agent-mesh-enterprise:1.2.22
           command: ["solace-agent-mesh", "run"]
           args:
             - "/app/configs/agents/main_orchestrator.yaml"
@@ -33,10 +33,3 @@ spec:
                 secretKeyRef:
                   key: latest
                   name: solace-broker-pw
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/configs
-      volumes:
-        - name: config-volume
-          configMap:
-            name: solace-agent-configs
