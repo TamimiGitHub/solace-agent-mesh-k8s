@@ -6,7 +6,7 @@ This document provides Google Cloud CLI (`gcloud`) commands for deploying and ma
 
 ```
 gcp-cloudrun/
-├── core-sam-gcp.yaml       # Cloud Run service definition
+├── core-sam.yaml       # Cloud Run service definition
 ├── configs/                # Configuration files directory
 │   ├── agents/             # Agent configuration files
 │   │   └── main_orchestrator.yaml
