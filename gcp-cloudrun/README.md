@@ -39,17 +39,6 @@ kubectl create configmap solace-agent-configs \
   --from-file=shared_config.yaml=configs/shared_config.yaml
 ```
 
-### Option 3: Create ConfigMap from individual files with custom paths
-
-For complete control over the file paths in the ConfigMap:
-
-```bash
-kubectl create configmap solace-agent-configs \
-  --from-file=agents/main_orchestrator.yaml=configs/agents/main_orchestrator.yaml \
-  --from-file=gateways/webui.yaml=configs/gateways/webui.yaml \
-  --from-file=shared_config.yaml=configs/shared_config.yaml
-```
-
 ## Deploying to GCP Cloud Run
 
 Once you've created the ConfigMap, you can deploy the Solace Agent Mesh service to Cloud Run:
