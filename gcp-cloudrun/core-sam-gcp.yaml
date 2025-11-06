@@ -1,0 +1,35 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: solace-agent-mesh
+spec:
+  template:
+    spec:
+      containers:
+        - image: us-east1-docker.pkg.dev/abiding-triode-168615/solace-repo/solace-agent-mesh-enterprise:1.2.22
+          command: ["solace-agent-mesh", "run"]
+          args:
+            - "/app/configs/agents/main_orchestrator.yaml"
+            - "/app/configs/gateways/webui.yaml"
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+          env:
+            - name: SOLACE_DEV_MODE
+              value: "FALSE"
+            - name: GOOGLE_GENAI_USE_VERTEXAI
+              value: "TRUE"
+            - name: NAMESPACE
+              value: <namespace>
+            - name: SOLACE_BROKER_URL
+              value: <url>
+            - name: SOLACE_BROKER_VPN
+              value: <vpn>
+            - name: SOLACE_BROKER_USERNAME
+              value: <user>
+            - name: SOLACE_BROKER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: latest
+                  name: solace-broker-pw
