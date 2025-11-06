@@ -83,7 +83,7 @@ The `core-sam.yaml` file defines a Knative Service that:
    - `/app/configs/gateways/webui.yaml`
 4. Sets necessary environment variables for the service
 
-## Environment Variables Management
+## [Optional] Environment Variables Management
 
 The `solace-agent-mesh run` command automatically reads environment variables from a `.env` file located at `/app/.env` in the container. You can simplify environment variable management by including the `.env` file in the same ConfigMap as your configuration files:
 
