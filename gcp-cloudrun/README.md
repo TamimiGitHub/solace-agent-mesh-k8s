@@ -83,60 +83,10 @@ gcloud secrets add-iam-policy-binding shared-config \
 gcloud run services replace core-sam-gcp.yaml
 ```
 
-2. **Alternative: Deploy directly with gcloud**:
-
-```bash
-gcloud run deploy solace-agent-mesh \
-  --image=solace-agent-mesh:latest \
-  --command="solace-agent-mesh" \
-  --args="run,/app/configs/agents/main_orchestrator.yaml,/app/configs/gateways/webui.yaml" \
-  --cpu=1 \
-  --memory=4Gi \
-  --service-account=solace-agent-sa@PROJECT_ID.iam.gserviceaccount.com \
-  --set-env-vars="SOLACE_DEV_MODE=FALSE,GOOGLE_GENAI_USE_VERTEXAI=TRUE,NAMESPACE=<namespace>,SOLACE_BROKER_URL=<url>,SOLACE_BROKER_VPN=<vpn>,SOLACE_BROKER_USERNAME=<user>" \
-  --region=us-central1
-```
-
-3. **Verify the deployment**:
+2. **Verify the deployment**:
 
 ```bash
 gcloud run services describe solace-agent-mesh
-```
-
-## Environment Variables Management
-
-### Using .env File with Cloud Storage
-
-1. **Create a .env file** with all your environment variables:
-
-```
-SOLACE_DEV_MODE=FALSE
-GOOGLE_GENAI_USE_VERTEXAI=TRUE
-NAMESPACE=<namespace>
-SOLACE_BROKER_URL=<url>
-SOLACE_BROKER_VPN=<vpn>
-SOLACE_BROKER_USERNAME=<user>
-SOLACE_BROKER_PASSWORD=<password>
-```
-
-2. **Upload to Cloud Storage**:
-
-```bash
-gsutil cp .env gs://solace-agent-configs/.env
-```
-
-3. **Reference in your deployment**:
-
-```bash
-gcloud run deploy solace-agent-mesh \
-  --image=solace-agent-mesh:latest \
-  --command="solace-agent-mesh" \
-  --args="run,/app/configs/agents/main_orchestrator.yaml,/app/configs/gateways/webui.yaml" \
-  --cpu=1 \
-  --memory=4Gi \
-  --service-account=solace-agent-sa@PROJECT_ID.iam.gserviceaccount.com \
-  --set-env-vars="ENV_FILE=gs://solace-agent-configs/.env" \
-  --region=us-central1
 ```
 
 ### Handling Secrets on GCP
@@ -162,15 +112,6 @@ gcloud secrets add-iam-policy-binding solace-broker-password \
   --role="roles/secretmanager.secretAccessor"
 ```
 
-3. **Reference secrets in your deployment**:
-
-```bash
-gcloud run deploy solace-agent-mesh \
-  --image=solace-agent-mesh:latest \
-  --service-account=solace-agent-sa@PROJECT_ID.iam.gserviceaccount.com \
-  --update-secrets="SOLACE_BROKER_PASSWORD=solace-broker-password:latest" \
-  --region=us-central1
-```
 
 ## Updating Configurations
 
