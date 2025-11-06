@@ -160,7 +160,7 @@ env:
   - name: SOLACE_BROKER_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: solace-broker-pw
+        name: solace-broker-password
         key: latest
 ```
 
